@@ -116,8 +116,8 @@ public class AppConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
-//                config.setAllowedOrigins(Arrays.asList("http://localhost:5173","https://licence-tau.vercel.app","https://dostenterprises.com/","https://licences01.netlify.app"));
-                config.setAllowedOrigins(Arrays.asList("https://license01.netlify.app/","https://license01.netlify.app"));
+                config.setAllowedOrigins(Arrays.asList("https://license01.netlify.app/","https://license01.netlify.app","http://localhost:5173","https://licence-tau.vercel.app","https://dostenterprises.com/","https://licences01.netlify.app"));
+//                config.setAllowedOrigins(Arrays.asList("https://license01.netlify.app/","https://license01.netlify.app"));
                 config.setAllowedMethods(Collections.singletonList("*"));
                 config.setAllowCredentials(true);
                 config.setAllowedHeaders(Collections.singletonList("*"));
