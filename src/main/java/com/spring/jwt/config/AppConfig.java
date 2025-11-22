@@ -72,25 +72,43 @@ public class AppConfig {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
 
+//                .csrf().disable()
+//                .formLogin().disable()
+//                .authorizeHttpRequests()
+//                .requestMatchers("/account/**").permitAll()
+//                .requestMatchers("/cars/**").permitAll()
+//                .requestMatchers("/booking/**").hasAnyAuthority("USER", "ADMIN","DEALER")
+//                .requestMatchers("/userProfilePhoto/**").permitAll()
+//                .requestMatchers("/photo/**").permitAll()
+////                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+//                .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
+//
+//
+//                .requestMatchers("/api/licenseList/getLicenseList").permitAll()
+//                .requestMatchers("/api/licenseList/**").hasAnyAuthority("ADMIN")
+//                .requestMatchers("/api/licenseOfCustomerController/getByMailID").permitAll()
+////                .requestMatchers("/api/licenseOfCustomerController/**").hasAnyAuthority("ADMIN")
+//                //.requestMatchers("/api/customer/**").hasAnyAuthority("ADMIN")
+//                .requestMatchers("/api/customer/**").hasAnyAuthority("ADMIN")
+
                 .csrf().disable()
                 .formLogin().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/account/**").permitAll()
                 .requestMatchers("/cars/**").permitAll()
-                .requestMatchers("/booking/**").hasAnyAuthority("USER", "ADMIN","DEALER")
+                .requestMatchers("/booking/**").permitAll()
                 .requestMatchers("/userProfilePhoto/**").permitAll()
                 .requestMatchers("/photo/**").permitAll()
 //                .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
-
+                .requestMatchers("/user/**").permitAll()
+                .requestMatchers("api/licenseOfCustomerController/**").permitAll()
 
                 .requestMatchers("/api/licenseList/getLicenseList").permitAll()
-                .requestMatchers("/api/licenseList/**").hasAnyAuthority("ADMIN")
-                .requestMatchers("/api/licenseOfCustomerController/getByMailID").permitAll()
+                .requestMatchers("/api/licenseList/**").permitAll()
+//                .requestMatchers("/api/licenseOfCustomerController/getByMailID").permitAll()
 //                .requestMatchers("/api/licenseOfCustomerController/**").hasAnyAuthority("ADMIN")
                 //.requestMatchers("/api/customer/**").hasAnyAuthority("ADMIN")
-                .requestMatchers("/api/customer/**").hasAnyAuthority("ADMIN")
-
+                .requestMatchers("/api/customer/**").permitAll()
 
 
                 .anyRequest().authenticated()
@@ -112,20 +130,44 @@ public class AppConfig {
     }
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        return new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(Arrays.asList("https://licenceok.vercel.app","https://dostenterprises.com","https://www.dostenterprises.com","https://license01.netlify.app/","https://license01.netlify.app","http://localhost:5174","http://localhost:5173","http://localhost:3000"));
-//                config.setAllowedOrigins(Arrays.asList("https://license01.netlify.app/","https://license01.netlify.app"));
-                config.setAllowedMethods(Collections.singletonList("*"));
-                config.setAllowCredentials(true);
-                config.setAllowedHeaders(Collections.singletonList("*"));
-                config.setExposedHeaders(Arrays.asList("Authorization"));
-                config.setMaxAge(3600L);
-                return config;
-            }
+        return request -> {
+            CorsConfiguration config = new CorsConfiguration();
+
+            config.setAllowedOrigins(Arrays.asList(
+                    "https://dost02.dostenterprises.com",   // 🔥 MUST ADD THIS
+                    "https://licenceok.vercel.app",
+                    "https://dostenterprises.com",
+                    "https://www.dostenterprises.com",
+                    "https://license01.netlify.app",
+                    "http://localhost:5174",
+                    "http://localhost:5173",
+                    "http://localhost:3000"
+            ));
+
+            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+            config.setAllowedHeaders(Collections.singletonList("*"));
+            config.setAllowCredentials(true);
+            config.setExposedHeaders(Arrays.asList("Authorization"));
+            config.setMaxAge(3600L);
+
+            return config;
         };
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        return new CorsConfigurationSource() {
+//            @Override
+//            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+//                CorsConfiguration config = new CorsConfiguration();
+//                config.setAllowedOrigins(Arrays.asList("https://licenceok.vercel.app","https://dostenterprises.com","https://www.dostenterprises.com","https://license01.netlify.app/","https://license01.netlify.app","http://localhost:5174","http://localhost:5173","http://localhost:3000"));
+////                config.setAllowedOrigins(Arrays.asList("https://license01.netlify.app/","https://license01.netlify.app"));
+//                config.setAllowedMethods(Collections.singletonList("*"));
+//                config.setAllowCredentials(true);
+//                config.setAllowedHeaders(Collections.singletonList("*"));
+//                config.setExposedHeaders(Arrays.asList("Authorization"));
+//                config.setMaxAge(3600L);
+//                return config;
+//            }
+//        };
     }
 
 
